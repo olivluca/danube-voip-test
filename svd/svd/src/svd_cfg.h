@@ -128,7 +128,7 @@ struct fax_s {
 };
 
 /** Routine main configuration struct.*/
-struct svd_conf_s {/*{{{*/
+typedef struct {/*{{{*/
 	int channels; /**<Number of configured channels (from svd_chans_init). */
 	char * local_ip; /**< local ip for the nua stack or NULL.*/
 	char log_level; /**< If log_level = -1 - do not log anything.*/
@@ -149,7 +149,8 @@ struct svd_conf_s {/*{{{*/
 	char * ring_tone; /* Custom ringing tone (asterisk style string). */
 	char * busy_tone; /* Custom busy tone (asterisk style string). */
 	char * cid_intnl_prefix; /* Replace + with this string in caller id */
-} g_conf;/*}}}*/
+} svd_conf_s;
+external svd_conf_s g_conf;/*}}}*/
 
 /** @} */
 
