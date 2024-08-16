@@ -31,7 +31,7 @@
 /** @}*/
 
 /** @defgroup STARTUP Startup configuration.
- *  \ref g_so struct (startup options) and functions to manipulate with it.
+ *  \ref  struct (startup options) and functions to manipulate with it.
  *  @{*/
 /*
 COMMAND LINE KEYS:
@@ -40,11 +40,12 @@ COMMAND LINE KEYS:
 */
 
 /** Sturtup keys set. */
-struct _startup_options {
+typedef struct {
 	unsigned char help; /**< Show help and exit. */
 	unsigned char version; /**< Show version and exit. */
 	char debug_level; /**< Logging level in debug mode. */
-} g_so;
+} _startup_options;
+extern _startup_options g_so;
 
 /** Getting parameters from startup keys. */
 int  startup_init( int argc, char ** argv );
