@@ -32,6 +32,8 @@
 #include <getopt.h>
 /*}}}*/
 
+svd_conf_s g_conf;
+
 /** @defgroup STARTUP_I Stratup internals.
  *  @ingroup STARTUP
  *  Internal startup definitons.
