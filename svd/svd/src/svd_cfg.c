@@ -31,7 +31,7 @@
 
 #include <getopt.h>
 /*}}}*/
-
+_startup_options g_so;
 svd_conf_s g_conf;
 
 /** @defgroup STARTUP_I Stratup internals.
