@@ -150,7 +150,7 @@ typedef struct {/*{{{*/
 	char * busy_tone; /* Custom busy tone (asterisk style string). */
 	char * cid_intnl_prefix; /* Replace + with this string in caller id */
 } svd_conf_s;
-external svd_conf_s g_conf;/*}}}*/
+extern svd_conf_s g_conf;/*}}}*/
 
 /** @} */
 
