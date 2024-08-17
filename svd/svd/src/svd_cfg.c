@@ -1200,7 +1200,7 @@ conf_show( void )
 	}
 
 	SU_DEBUG_3((" led[%s] : ", g_conf.voip_led));
-	SU_DEBUG_3(("ports[%l:%l]\n",
+	SU_DEBUG_3(("ports[%ld:%ld]\n",
 			g_conf.rtp_port_first,
 			g_conf.rtp_port_last));
 
