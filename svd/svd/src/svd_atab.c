@@ -284,7 +284,7 @@ svd_clear_call (svd_t * const svd, ab_chan_t * const chan)
 DFS
 	
 	if (chan_ctx->call_established) {
-		SU_DEBUG_2(("Channel %d ending %s call to %s account %s duration %L\n", 
+		SU_DEBUG_2(("Channel %d ending %s call to %s account %s duration %Ld\n", 
 			   chan_ctx->chan_idx+1,chan_ctx->outgoing_call ? "outgoing" : "incoming",
 	                   chan_ctx->remote_sip,
 			   chan_ctx->account ? chan_ctx->account->name : "?",
@@ -808,7 +808,7 @@ svd_handle_event_FXS_DIGIT_X ( svd_t * const svd, int const chan_idx,
 	int err;
 
 DFS
-	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%l,n:%l)HN:%l\n",
+	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%ld,n:%ld)HN:%ld\n",
 			ab_chan->abs_idx, digit, (data >> 9),(data >> 8) & 1,
 			chan_ctx->op_handle));
 
@@ -1220,7 +1220,7 @@ DFS
 	}
 	if( !rtp_binded ){
 		SU_DEBUG_1(("svd_media_tapi_open_rtp(): could not find free "
-				"port for RTP in range [%l,%l]\n",
+				"port for RTP in range [%ld,%ld]\n",
 				g_conf.rtp_port_first, g_conf.rtp_port_last));
 		goto __sock_opened;
 	}
