@@ -808,7 +808,7 @@ svd_handle_event_FXS_DIGIT_X ( svd_t * const svd, int const chan_idx,
 	int err;
 
 DFS
-	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%l,n:%l)HN:%p\n",
+	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%l,n:%l)HN:%l\n",
 			ab_chan->abs_idx, digit, (data >> 9),(data >> 8) & 1,
 			chan_ctx->op_handle));
 
@@ -1086,7 +1086,7 @@ svd_media_tapi_handle_local_data (su_root_magic_t * root, su_wait_t * w,
 	} else if(rode > 0){
 		// should not block
 		sent = sendto(chan_ctx->rtp_sfd, buf, rode, 0,
-				(sockaddr *)&target_sock_addr, sizeof(target_sock_addr));
+				(struct sockaddr *)&target_sock_addr, sizeof(target_sock_addr));
 		if (sent == -1){
 			SU_DEBUG_2 (("HLD() ERROR : sent() : %d(%s)\n",
 					errno, strerror(errno)));
@@ -1212,7 +1212,7 @@ DFS
 		my_addr.sin_family = AF_INET;
 		my_addr.sin_port = htons(g_conf.rtp_port_first + i);
 		my_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-		if ((bind(sock_fd, (sockaddr *)&my_addr, sizeof(my_addr))) != -1) {
+		if ((bind(sock_fd, (struct sockaddr *)&my_addr, sizeof(my_addr))) != -1) {
 			chan_ctx->rtp_port = g_conf.rtp_port_first + i;
 			rtp_binded = 1;
 			break;
