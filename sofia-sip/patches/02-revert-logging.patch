@@ -1,0 +1,155 @@
+--- sofia-sip-1.13.17/libsofia-sip-ua/su/sofia-sip/su_log.h	2023-11-07 20:01:45.000000000 +0100
++++ sofia-sip-1.12.11/libsofia-sip-ua/su/sofia-sip/su_log.h	2011-03-11 15:49:19.000000000 +0100
+@@ -52,15 +52,6 @@
+ 
+ SOFIA_BEGIN_DECLS
+ 
+-#ifdef _MSC_VER
+-#define __SOFIA_FUNC__ __FUNCTION__
+-#else
+-#define __SOFIA_FUNC__ (const char *)__func__
+-#endif
+-
+-
+-
+-
+ /** Prototype for logging function */
+ typedef void (su_logger_f)(void *stream, char const *fmt, va_list ap);
+ 
+@@ -86,9 +77,9 @@
+ SOFIAPUBFUN void su_log(char const *fmt, ...)
+   __attribute__ ((__format__ (printf, 1, 2)));
+ 
+-SOFIAPUBFUN void _su_llog(su_log_t *log, unsigned level, const char *file, const char *func, int line, char const *fmt, ...)
+-  __attribute__ ((__format__ (printf, 6, 7)));
+-SOFIAPUBFUN void _su_vllog(su_log_t *log, unsigned level, const char *file, const char *func, int line,
++SOFIAPUBFUN void su_llog(su_log_t *log, unsigned level, char const *fmt, ...)
++  __attribute__ ((__format__ (printf, 3, 4)));
++SOFIAPUBFUN void su_vllog(su_log_t *log, unsigned level,
+ 			  char const *fmt, va_list ap);
+ SOFIAPUBFUN void su_log_redirect(su_log_t *log, su_logger_f *f, void *stream);
+ SOFIAPUBFUN void su_log_set_level(su_log_t *log, unsigned level);
+@@ -101,9 +92,6 @@
+ /** Log the latest su error message */
+ SOFIAPUBFUN void su_perror(char const *s);
+ 
+-#define su_llog(_l, _ll, _f, ...) _su_llog(_l, _ll, __FILE__, __SOFIA_FUNC__, __LINE__, _f, __VA_ARGS__)
+-#define su_vllog(_l, _ll, _f, ...) _su_vllog(_l, _ll, __FILE__, __SOFIA_FUNC__, __LINE__, _f, __VA_ARGS__)
+-
+ /** Log the su error message. */
+ SOFIAPUBFUN void su_perror2(char const *s, int errcode);
+ 
+--- sofia-sip-1.13.17/libsofia-sip-ua/su/sofia-sip/su_debug.h	2023-11-07 20:01:45.000000000 +0100
++++ sofia-sip-1.12.11/libsofia-sip-ua/su/sofia-sip/su_debug.h	2011-03-11 15:49:19.000000000 +0100
+@@ -73,17 +73,13 @@
+ SOFIAPUBVAR su_log_t SU_LOG[];
+ #endif
+ 
+-#define VA_NONE "%s",""
+-
+ #define SU_DEBUG_DEF(level) \
+   su_inline void su_debug_##level(char const *fmt, ...) \
+     __attribute__ ((__format__ (printf, 1, 2))); \
+   su_inline void su_debug_##level(char const *fmt, ...) \
+-  { va_list ap; va_start(ap, fmt); su_vllog(SU_LOG, level, fmt, ap); va_end(ap); }
+-
+-//SU_DEBUG_DEF(0)
+-#define su_debug_0(_f, ...) su_llog(SU_LOG, 0, _f, __VA_ARGS__) 
++    { va_list ap; va_start(ap, fmt); su_vllog(SU_LOG, level, fmt, ap); va_end(ap); }
+ 
++SU_DEBUG_DEF(0)
+ /** Log messages at level 0.
+  *
+  * Fatal errors and panic messages should be logged at level 0.
+@@ -104,10 +100,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 1
+-//SU_DEBUG_DEF(1)
+-#define su_debug_1(_f, ...) su_llog(SU_LOG, 1, _f, __VA_ARGS__) 
+-
+-
++SU_DEBUG_DEF(1)
+ /**Log messages at level 1.
+  *
+  * Critical errors and minimal progress at subsystem level should be logged
+@@ -121,8 +114,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 2
+-//SU_DEBUG_DEF(2)
+-#define su_debug_2(_f, ...) su_llog(SU_LOG, 2, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(2)
+ /**Log messages at level 2.
+  *
+  * Non-critical errors should be logged at level 2.
+@@ -135,8 +127,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 3
+-//SU_DEBUG_DEF(3)
+-#define su_debug_3(_f, ...) su_llog(SU_LOG, 3, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(3)
+ /** Log messages at level 3.
+  *
+  * Warnings and progress messages should be logged at level 3.
+@@ -149,8 +140,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 4
+-//SU_DEBUG_DEF(4)
+-#define su_debug_4(_f, ...) su_llog(SU_LOG, 4, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(4)
+ /** Log messages at level 4. */
+ #define SU_DEBUG_4(x) (SU_LOG_LEVEL >= 4 ? (su_debug_4 x) : (void)0)
+ #else
+@@ -158,8 +148,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 5
+-//SU_DEBUG_DEF(5)
+-#define su_debug_5(_f, ...) su_llog(SU_LOG, 5, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(5)
+ /** Log messages at level 5.
+  *
+  * Signaling protocol actions (incoming packets, etc.) should be logged
+@@ -173,8 +162,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 6
+-//SU_DEBUG_DEF(6)
+-#define su_debug_6(_f, ...) su_llog(SU_LOG, 6, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(6)
+ /** Log messages at level 6. */
+ #define SU_DEBUG_6(x) (SU_LOG_LEVEL >= 6 ? (su_debug_6 x) : (void)0)
+ #else
+@@ -182,8 +170,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 7
+-//SU_DEBUG_DEF(7)
+-#define su_debug_7(_f, ...) su_llog(SU_LOG, 7, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(7)
+ /** Log messages at level 7.
+  *
+  * Media protocol actions (incoming packets, etc) should be logged at level 7.
+@@ -196,8 +183,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 8
+-//SU_DEBUG_DEF(8)
+-#define su_debug_8(_f, ...) su_llog(SU_LOG, 8, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(8)
+ /** Log messages at level 8. */
+ #define SU_DEBUG_8(x) (SU_LOG_LEVEL >= 8 ? (su_debug_8 x) : (void)0)
+ #else
+@@ -205,8 +191,7 @@
+ #endif
+ 
+ #if SU_DEBUG_MAX >= 9
+-//SU_DEBUG_DEF(9)
+-#define su_debug_9(_f, ...) su_llog(SU_LOG, 9, _f, __VA_ARGS__) 
++SU_DEBUG_DEF(9)
+ /** Log messages at level 9.
+  *
+  * Entering/exiting functions, very verbatim progress should be logged at
