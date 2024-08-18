@@ -1,5 +1,9 @@
 This is a sip client using the 2 FXS ports available on routers based on the Infineon Danube (lantiq xway) and running openwrt.
 
+**This is just a test to try and build it for openwrt 23.05.4, currently it doesn't work.**
+
+**The original repository, working with openwrt 19.07.2 is [here](https://github.com/olivluca/danube-voip).**
+
 Based on the [midge](http://zftlab.org/pages/2014070600.html) package [oem-voip](https://github.com/ZigFisher/Midge/tree/master/package/oem-voip) and [sofia-sip](http://sofia-sip.sourceforge.net).
 
 See the [INSTRUCTIONS](INSTRUCTIONS.md) for instructions.
