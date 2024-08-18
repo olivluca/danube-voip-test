@@ -1204,7 +1204,9 @@ conf_show( void )
 			g_conf.rtp_port_first,
 			g_conf.rtp_port_last));
 
+ fprintf(stderr,"______ before codecs MAS_SIZE %d pointer %p\n",COD_MAS_SIZE,&g_conf.codecs[1]);
 	for (i=i; i<COD_MAS_SIZE; i++) if (g_conf.codecs[i].type!=cod_type_NONE) {
+ fprintf(stderr,"______ codec %d\n",i);
 		SU_DEBUG_3(("t:%s/bp%d/sz%d/pt:0x%X__[%d:%d]::[%d:%d:%d:%d]\n",
 				g_conf.cp[g_conf.codecs[i].type-CODEC_BASE].sdp_name,
 				g_conf.codecs[i].bpack,
@@ -1219,6 +1221,7 @@ conf_show( void )
 				));
 	}
 
+ fprintf(stderr,"______ before g_conf.sip_account\n");
 	if (g_conf.sip_account)
 	for (i=0; i<su_vector_len(g_conf.sip_account); i++) {
 		curr_sip_rec = su_vector_item(g_conf.sip_account, i);  
@@ -1260,6 +1263,7 @@ conf_show( void )
 		}
 		SU_DEBUG_3((	"\tDtmf mode: %s\n", dtmf_name[curr_sip_rec->dtmf]));
 	}	
+ fprintf(stderr,"______ after g_conf.sip_account\n");
 
 	/* rtp audio and wlec parameters */
 	for (i=0; i<g_conf.channels; i++) {
@@ -1269,6 +1273,7 @@ conf_show( void )
 			    i, g_conf.chan_led[i], c->enc_dB, c->dec_dB, c->VAD_cfg, c->HPF_is_ON,
 			    w->mode, w->nlp, w->ne_nb, w->fe_nb));
 	}
+ fprintf(stderr,"______ after g_conf.channels\n");
 
 	if(g_conf.dial_plan){
 		SU_DEBUG_3(("Dial plan :\n" VA_NONE));
@@ -1281,6 +1286,7 @@ conf_show( void )
 		}
 	}
 
+ fprintf(stderr,"______ end\n");
 	SU_DEBUG_3(("=========================\n" VA_NONE));
 }/*}}}*/
 
@@ -1333,6 +1339,7 @@ codec_defaults( void )
 	/* Init names and basic parameters */
 	/* G722_64 parameters. */
 	i=cod_type_G722_64-CODEC_BASE;
+	fprintf(stderr,"codec G722 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G722_64;
 	g_conf.cp[i].sdp_name=strdup("G722");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1340,6 +1347,7 @@ codec_defaults( void )
 	
 	/* G711 ALAW parameters. */
 	i=cod_type_ALAW-CODEC_BASE;
+	fprintf(stderr,"codec PCMA index %d\n",i);
 	g_conf.cp[i].type = cod_type_ALAW;
 	g_conf.cp[i].sdp_name=strdup("PCMA");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1347,6 +1355,7 @@ codec_defaults( void )
 
 	/* G729 parameters. */
 	i=cod_type_G729-CODEC_BASE;
+	fprintf(stderr,"codec G729 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G729;
 	g_conf.cp[i].sdp_name=strdup("G729");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1354,6 +1363,7 @@ codec_defaults( void )
 
 	/* G729E parameters. */
 	i=cod_type_G729E-CODEC_BASE;
+	fprintf(stderr,"codec G729E index %d\n",i);
 	g_conf.cp[i].type = cod_type_G729E;
 	g_conf.cp[i].sdp_name=strdup("G729E");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1361,6 +1371,7 @@ codec_defaults( void )
 
 	/* G723 parameters. */
 	i=cod_type_G723-CODEC_BASE;
+	fprintf(stderr,"codec G723 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G723;
 	g_conf.cp[i].sdp_name=strdup("G723");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1368,6 +1379,7 @@ codec_defaults( void )
 
 	/* iLBC_133 parameters. */
 	i=cod_type_ILBC_133-CODEC_BASE;
+	fprintf(stderr,"codec ILBD_133 index %d\n",i);
 	g_conf.cp[i].type = cod_type_ILBC_133;
 	g_conf.cp[i].sdp_name=strdup("iLBC");
 	g_conf.cp[i].fmtp_str=strdup("mode=30");
@@ -1387,6 +1399,7 @@ codec_defaults( void )
 
 	/* G726_16 parameters. */
 	i=cod_type_G726_16-CODEC_BASE;
+	fprintf(stderr,"codec G726_16 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G726_16;
 	g_conf.cp[i].sdp_name=strdup("G726-16");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1394,6 +1407,7 @@ codec_defaults( void )
 
 	/* G726_ parameters. */
 	i=cod_type_G726_24-CODEC_BASE;
+	fprintf(stderr,"codec G726_24 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G726_24;
 	g_conf.cp[i].sdp_name=strdup("G726-24");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1401,6 +1415,7 @@ codec_defaults( void )
 
 	/* G726_ parameters. */
 	i=cod_type_G726_32-CODEC_BASE;
+	fprintf(stderr,"codec G726_32 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G726_32;
 	g_conf.cp[i].sdp_name=strdup("G726-32");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1408,6 +1423,7 @@ codec_defaults( void )
 
 	/* G726_ parameters. */
 	i=cod_type_G726_40-CODEC_BASE;
+	fprintf(stderr,"codec G726_40 index %d\n",i);
 	g_conf.cp[i].type = cod_type_G726_40;
 	g_conf.cp[i].sdp_name=strdup("G726-40");
 	g_conf.cp[i].fmtp_str=empty;
@@ -1415,6 +1431,7 @@ codec_defaults( void )
 	
 	/* telephone event parameters. */
 	i=TELEPHONE_EVENT_CODEC-CODEC_BASE;
+	fprintf(stderr,"codec TELEPHONE_EVENT index %d\n",i);
 	g_conf.cp[i].type = TELEPHONE_EVENT_CODEC;
 	g_conf.cp[i].sdp_name=strdup("telephone-event");
 	g_conf.cp[i].fmtp_str=strdup("0-16");
@@ -1427,6 +1444,7 @@ codec_defaults( void )
 	}
 
 	/* Default values for the codecs */
+	fprintf(stderr,"G722_64 %d\n",cod_type_G722_64);
 	g_conf.codecs[cod_type_G722_64].type=cod_type_G722_64;
 	g_conf.codecs[cod_type_G722_64].pkt_size=cod_pkt_size_20;
 	g_conf.codecs[cod_type_G722_64].bpack=bitpack_RTP;
@@ -1438,6 +1456,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G722_64].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G722_64].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"ALAW %d\n",cod_type_ALAW);
 	g_conf.codecs[cod_type_ALAW].type=cod_type_ALAW;
 	g_conf.codecs[cod_type_ALAW].pkt_size=cod_pkt_size_20;
 	g_conf.codecs[cod_type_ALAW].bpack=bitpack_RTP;
@@ -1449,6 +1468,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_ALAW].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_ALAW].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"G729 %d\n",cod_type_G729);
 	g_conf.codecs[cod_type_G729].type=cod_type_G729;
 	g_conf.codecs[cod_type_G729].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G729].bpack=bitpack_RTP;
@@ -1460,6 +1480,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G729].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G729].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"G729E %d\n",cod_type_G729E);
 	g_conf.codecs[cod_type_G729E].type=cod_type_G729E;
 	g_conf.codecs[cod_type_G729E].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G729E].bpack=bitpack_RTP;
@@ -1471,6 +1492,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G729E].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G729E].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"ILBC_133 %d\n",cod_type_ILBC_133);
 	g_conf.codecs[cod_type_ILBC_133].type=cod_type_ILBC_133;
 	g_conf.codecs[cod_type_ILBC_133].pkt_size=cod_pkt_size_30;
 	g_conf.codecs[cod_type_ILBC_133].bpack=bitpack_RTP;
@@ -1482,6 +1504,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_ILBC_133].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_ILBC_133].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"G723 %d\n",cod_type_G723);
 	g_conf.codecs[cod_type_G723].type=cod_type_G723;
 	g_conf.codecs[cod_type_G723].pkt_size=cod_pkt_size_30;
 	g_conf.codecs[cod_type_G723].bpack=bitpack_RTP;
@@ -1493,6 +1516,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G723].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G723].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"G726_16 %d\n",cod_type_G726_16);
 	g_conf.codecs[cod_type_G726_16].type=cod_type_G726_16;
 	g_conf.codecs[cod_type_G726_16].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G726_16].bpack=bitpack_AAL2;
@@ -1504,6 +1528,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G726_16].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G726_16].jb.jb_max_sz=200*8;
 
+	fprintf(stderr,"G726_24 %d\n",cod_type_G726_24);
 	g_conf.codecs[cod_type_G726_24].type=cod_type_G726_24;
 	g_conf.codecs[cod_type_G726_24].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G726_24].bpack=bitpack_AAL2;
@@ -1515,6 +1540,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G726_24].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G726_24].jb.jb_max_sz=200*8;
 
+	fprintf(stderr,"G726_32 %d\n",cod_type_G726_24);
 	g_conf.codecs[cod_type_G726_32].type=cod_type_G726_32;
 	g_conf.codecs[cod_type_G726_32].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G726_32].bpack=bitpack_AAL2;
@@ -1526,6 +1552,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G726_32].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G726_32].jb.jb_max_sz=200*8;
 
+	fprintf(stderr,"G726_40 %d\n",cod_type_G726_40);
 	g_conf.codecs[cod_type_G726_40].type=cod_type_G726_40;
 	g_conf.codecs[cod_type_G726_40].pkt_size=cod_pkt_size_10;
 	g_conf.codecs[cod_type_G726_40].bpack=bitpack_AAL2;
@@ -1537,6 +1564,7 @@ codec_defaults( void )
 	g_conf.codecs[cod_type_G726_40].jb.jb_min_sz=10*8;
 	g_conf.codecs[cod_type_G726_40].jb.jb_max_sz=200*8;
 	
+	fprintf(stderr,"TELEPHONE_EVENT %d\n",TELEPHONE_EVENT_CODEC);
 	g_conf.codecs[TELEPHONE_EVENT_CODEC].type=TELEPHONE_EVENT_CODEC;
 	g_conf.codecs[TELEPHONE_EVENT_CODEC].user_payload=106;
 	

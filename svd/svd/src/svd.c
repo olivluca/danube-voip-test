@@ -80,7 +80,7 @@ main (int argc, char ** argv)
 		goto __startup;
 	}
 	/* the daemon from now */
-
+  
 	su_init();
 
 	/* preliminary log settings */
