@@ -808,7 +808,7 @@ svd_handle_event_FXS_DIGIT_X ( svd_t * const svd, int const chan_idx,
 	int err;
 
 DFS
-	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%ld,n:%ld)HN:%ld\n",
+	SU_DEBUG_8 (("[%02d] DIGIT \'%c\'(l:%ld,n:%ld)HN:%p\n",
 			ab_chan->abs_idx, digit, (data >> 9),(data >> 8) & 1,
 			chan_ctx->op_handle));
 
